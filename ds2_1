@@ -1,0 +1,138 @@
+
+class Main {
+public static void main(String[] args) {
+NumberPresentator a_Number = new NumberPresentator(10,2);
+NumberPresentator b_Number = new NumberPresentator(15,5);
+Numbers numbers = new Numbers();
+System.out.println("Real:");
+NumberPresentator result;
+result = numbers.add(a_Number, b_Number);
+result.print();
+result = numbers.substract(a_Number, b_Number);
+result.print();
+result = numbers.multuply(a_Number, b_Number);
+result.print();
+result = numbers.divide(a_Number, b_Number);
+result.print();
+System.out.println();
+System.out.println("Complex:");
+
+ComplexNumbers c_numbers = new ComplexNumbers();
+result = c_numbers.add(a_Number, b_Number);
+result.print_complex();
+result = c_numbers.substract(a_Number, b_Number);
+result.print_complex();
+result = c_numbers.multuply(a_Number, b_Number);
+result.print_complex();
+result = c_numbers.divide(a_Number, b_Number);
+result.print_complex();
+}
+}
+
+class NumberPresentator{
+double num;
+double i;
+NumberPresentator(double num,double i){
+this.num = num;
+this.i = i;
+}
+public double getNumber(){
+return num;
+}
+public double getI(){
+return i;
+}
+public void print(){
+System.out.println(num);
+}
+public void print_complex(){
+System.out.print(num);
+System.out.print(" + ");
+System.out.print(i);
+System.out.println("i");
+}
+}
+
+interface AriphmeticOperations{
+
+NumberPresentator add(NumberPresentator a,NumberPresentator b);
+NumberPresentator substract(NumberPresentator a,NumberPresentator b);
+NumberPresentator multuply(NumberPresentator a,NumberPresentator b);
+NumberPresentator divide(NumberPresentator a,NumberPresentator b);
+}
+
+class Numbers implements AriphmeticOperations{
+public NumberPresentator add(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1+n2;
+NumberPresentator np = new NumberPresentator(n3,0);
+return np;
+}
+public NumberPresentator substract(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1-n2;
+NumberPresentator np = new NumberPresentator(n3,0);
+return np;
+}
+public NumberPresentator multuply(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1*n2;
+NumberPresentator np = new NumberPresentator(n3,0);
+return np;
+}
+public NumberPresentator divide(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1/n2;
+NumberPresentator np = new NumberPresentator(n3,0);
+return np;
+}
+}
+class ComplexNumbers implements AriphmeticOperations{
+public NumberPresentator add(NumberPresentator a,NumberPresentator b){
+//https://www.webmath.ru/poleznoe/formules_16_8.php#2
+double a1 = a.getNumber();
+double a2 = b.getNumber();
+double a3 = a1+a2;
+double i1 = a.getI();
+double i2 = b.getI();
+double i3 = i1+i2;
+NumberPresentator np = new NumberPresentator(a3,i3);
+return np;
+}
+public NumberPresentator substract(NumberPresentator a,NumberPresentator b){//https://www.webmath.ru/poleznoe/formules_16_8.php#2
+double a1 = a.getNumber();
+double a2 = b.getNumber();
+double a3 = a1-a2;
+double i1 = a.getI();
+double i2 = b.getI();
+double i3 = i1-i2;
+NumberPresentator np = new NumberPresentator(a3,i3);
+return np;
+}
+public NumberPresentator multuply(NumberPresentator a,NumberPresentator b){
+//https://www.webmath.ru/poleznoe/formules_16_9.php
+double a1 = a.getNumber();
+double a2 = b.getNumber();
+double i1 = a.getI();
+double i2 = b.getI();
+double a3 = a1*a2-i1*i2;
+double i3 = a1*i2 + i1*a2;
+NumberPresentator np = new NumberPresentator(a3,i3);
+return np;
+}
+public NumberPresentator divide(NumberPresentator a,NumberPresentator b){
+//http://www.matematika.uznateshe.ru/delenie-kompleksny..
+double a1 = a.getNumber();
+double a2 = b.getNumber();
+double i1 = a.getI();
+double i2 = b.getI();
+double a3 = (a1*a2+i1*i2)/(a2*a2+i2*i2);
+double i3 = (i1*a2-a1*i2)/(a2*a2+i2*i2);
+NumberPresentator np = new NumberPresentator(a3,i3);
+return np;
+}
+}
